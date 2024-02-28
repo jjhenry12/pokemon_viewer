@@ -1,0 +1,44 @@
+.pokemon-list-item {
+  display: flex;
+  height: 80px;
+  padding: 3px 0px;
+  cursor: pointer;
+  color: #fff;
+  background: #616161;
+  border-bottom: 1px solid #000;
+  font-size: 14px;
+
+}
+
+.pokemon-list-item-hover img {
+  transform: translate(0);
+  transition: all 0.2s ease-in-out;
+}
+
+
+.pokemon-list-item-hover img {
+  transform: scale(1.3) rotate(10deg)
+}
+
+.pokemon-list-addtl {
+  flex-grow: 1;
+}
+
+.pokemon-list-item span {
+  display: block;
+  padding: 3px;
+  background: #000;
+  font-family: "Anta", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pokemon-list-item ul {
+  margin: 0;
+  padding: 0;
+}
+
+.pokemon-list-item li {
+  list-style: none;
+}
