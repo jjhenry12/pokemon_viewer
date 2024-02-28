@@ -1,29 +1,32 @@
-export const initialState = {
-  pokemons: [],
-  selectedPokemon: null
+import { createContext, useContext, useMemo, useReducer } from "react";
+import reducer, { initialState } from "../reducers/pokemon";
+
+const PokemonContext = createContext();
+
+function PokemonProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const providerValue = useMemo(
+    () => ({
+      state,
+      dispatch,
+    }),
+    [state]
+  );
+
+  return (
+    <PokemonContext.Provider value={providerValue}>
+      {children}
+    </PokemonContext.Provider>
+  );
 }
 
-export const MAPPING_ACTIONS = {
-  SET_POKEMONS: "set_pokemons",
-  SET_SELECTED_POKEMON: "set_selected_pokemon"
-}
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case MAPPING_ACTIONS.SET_POKEMONS:
-      return {
-        ...state,
-        pokemons: action.payload
-      }
-    case MAPPING_ACTIONS.SET_SELECTED_POKEMON:
-      return {
-        ...state,
-        selectedPokemon: action.payload
-      }
-    default: {
-      throw new Error(`Unhandled action type ${action.type}`)
-    }
+function usePokemonProvider() {
+  const context = useContext(PokemonContext);
+  if (context === undefined) {
+    throw new Error("Pokemon Context must be used within a PokemonProvider");
   }
+  return context;
 }
 
-export default reducer
+export { PokemonProvider, PokemonContext, usePokemonProvider };

@@ -1,32 +1,52 @@
 import { useCallback, useEffect, useState } from "react";
 
-const usePokemon = () => {
-  const [pokemonList, setPokemonList] = useState([])
-  const [pokemonDescription, setPokemonDescription] = useState([])
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
+const usePokemon = (url) => {
+  const [pokemonList, setPokemonList] = useState([]);
+  const [pokemonDescription, setPokemonDescription] = useState([]);
+  const [error, setError] = useState(null);
+  const [nextUrl, setNextUrl] = useState(null);
+  const [prevUrl, setPreviousUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchPokemon = useCallback(async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const { results } = await (await fetch(`https://pokeapi.co/api/v2/pokemon?limit=10`)).json()
-      const pokemonDetail = results?.map(async (detail) => await (await fetch(`https://pokeapi.co/api/v2/pokemon/${detail.name}`)).json()) || []
-      const pokemonDescArr = results?.map(async (detail) => await (await fetch(`https://pokeapi.co/api/v2/pokemon-species/${detail.name}`)).json()) || []
-      Promise.all(pokemonDetail).then(setPokemonList)
-      Promise.all(pokemonDescArr).then(setPokemonDescription)
-      setLoading(false)
+      const { results, next, previous } = await (await fetch(url)).json();
+      const pokemonDetail =
+        results?.map(
+          async (detail) =>
+            await (
+              await fetch(`https://pokeapi.co/api/v2/pokemon/${detail.name}`)
+            ).json()
+        ) || [];
+      const pokemonDescArr =
+        results?.map(
+          async (detail) =>
+            await (
+              await fetch(
+                `https://pokeapi.co/api/v2/pokemon-species/${detail.name}`
+              )
+            ).json()
+        ) || [];
+      const listArr = await Promise.all(pokemonDetail);
+      const descrArr = await Promise.all(pokemonDescArr);
+      setPokemonList(listArr);
+      setPokemonDescription(descrArr);
+      setNextUrl(next);
+      setPreviousUrl(previous);
+      setLoading(false);
     } catch (error) {
-      setError(error)
-      setLoading(false)
+      setError(error);
+      setLoading(false);
     }
-  }, [])
+  }, [url]);
 
   useEffect(() => {
-    fetchPokemon()
+    fetchPokemon();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchPokemon])
+  }, [fetchPokemon]);
 
-  return {pokemonList, error, loading, pokemonDescription}
+  return { pokemonList, error, loading, pokemonDescription, nextUrl, prevUrl };
 };
 
-export default usePokemon
+export default usePokemon;

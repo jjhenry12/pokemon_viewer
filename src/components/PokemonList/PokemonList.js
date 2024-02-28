@@ -1,13 +1,20 @@
-import { useState } from "react"
-import PokemonListItem from "../PokemonListItem/PokemonListItem"
-import "./index.css"
+import PokemonListItem from "../PokemonListItem/PokemonListItem";
+import { usePokemonProvider } from "../../contexts/pokemon";
 
-function PokemonList({pokemonList, onSelected}) {
-  const [hoverIndex, setHoverIndex] = useState(null)
+import "./index.css";
+
+function PokemonList() {
+  const {
+    state: { pokemons = [] },
+  } = usePokemonProvider();
+
   return (
     <>
-      {pokemonList.map((pokemon, index) => <PokemonListItem shouldHighlight={index === hoverIndex} pokemon={pokemon} onHover={setHoverIndex} onSelected={onSelected} order={index} />)}
+      {pokemons.length &&
+        pokemons.map((pokemon, index) => (
+          <PokemonListItem pokemon={pokemon} order={index} />
+        ))}
     </>
-  )
+  );
 }
-export default PokemonList
+export default PokemonList;

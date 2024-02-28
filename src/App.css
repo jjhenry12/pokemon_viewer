@@ -1,13 +1,3 @@
-ul, li, h3, p {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  text-align: center;
-  background: #424242 url(./images/body_bg.png)
-}
-
 .container {
   height: 40vmin;
   background: #fff url(./images/container_bg.png);
@@ -30,10 +20,49 @@ nav {
 
 main {
   flex-grow: 1;
+  transition: all 0.5s;
+}
+
+main.show-detail {
+  opacity: 1;
+  z-index: 100;
 }
 
 .masthead {
   width: 100%;
   height: 190px;
   background: #fff url(./images/masthead.jpeg) -50px -494px;
+}
+
+.masthead button {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  display: none;
+}
+
+@media only screen and (max-width: 1280px){
+  .container {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+  .container main section {
+    justify-content: center;
+    align-items: center;
+  }
+  main {
+    background: #fff;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+  }
+  nav {
+    width: 100%;
+    z-index: 99;
+    overflow-y: scroll;
+  }
+  .masthead button {
+    display: block;
+  }
 }
