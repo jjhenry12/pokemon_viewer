@@ -41,7 +41,7 @@ function PokemonDetail() {
                 <span>{pokemon.height}ft</span>
               </li>
               <li tabIndex="2">
-                <em>Wof cight</em>
+                <em>Weight</em>
                 <span>{pokemon.weight}lbs</span>
               </li>
               <li tabIndex="3">

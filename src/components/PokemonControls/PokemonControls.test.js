@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import PokemonControls from "./PokemonControls";
 import { PokemonContext } from "../../contexts/pokemon";
 
@@ -64,5 +64,53 @@ describe("<PokemonControls />", () => {
       </PokemonContext.Provider>
     );
     expect(screen.queryByText(/Next/i)).not.toBeInTheDocument();
+  });
+
+  test("triggers previous URL when clicked", () => {
+    let global = {
+      url: "",
+    };
+
+    const defaultValue = {
+      state: {
+        previousUrl: "http://www.previous.com",
+      },
+      dispatch: (prevUrl) => (global.url = prevUrl),
+    };
+
+    render(
+      <PokemonContext.Provider value={defaultValue}>
+        <PokemonControls />
+      </PokemonContext.Provider>
+    );
+    fireEvent.click(screen.queryByText(/Back/i));
+    expect(global.url).toMatchObject({
+      payload: "http://www.previous.com",
+      type: "set_url",
+    });
+  });
+
+  test("triggers next URL when clicked", () => {
+    let global = {
+      url: "",
+    };
+
+    const defaultValue = {
+      state: {
+        nextUrl: "http://www.next.com",
+      },
+      dispatch: (nextUrl) => (global.url = nextUrl),
+    };
+
+    render(
+      <PokemonContext.Provider value={defaultValue}>
+        <PokemonControls />
+      </PokemonContext.Provider>
+    );
+    fireEvent.click(screen.queryByText(/Next/i));
+    expect(global.url).toMatchObject({
+      payload: "http://www.next.com",
+      type: "set_url",
+    });
   });
 });
