@@ -12,7 +12,7 @@ function PokemonList() {
     <>
       {pokemons.length &&
         pokemons.map((pokemon, index) => (
-          <PokemonListItem pokemon={pokemon} order={index} />
+          <PokemonListItem key={`${pokemon}-${index}`} pokemon={pokemon} order={index} />
         ))}
     </>
   );

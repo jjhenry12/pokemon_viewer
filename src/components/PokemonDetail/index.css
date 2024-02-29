@@ -7,6 +7,10 @@
   padding: 0px 30px;
 }
 
+.pokemon-detail-container.loading {
+  opacity: 0.3;
+} 
+
 .pokemon-info {
   display: flex;
   font-family: "Anta", sans-serif;

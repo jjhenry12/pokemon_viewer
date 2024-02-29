@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import usePokemon from "./hooks/usePokemon";
 import { usePokemonProvider } from "./contexts/pokemon";
 import PokemonList from "./components/PokemonList/PokemonList";
@@ -13,7 +13,7 @@ function App() {
     state: { url, showDetail },
     dispatch,
   } = usePokemonProvider();
-  const { pokemonList, pokemonDescription, error, loading, prevUrl, nextUrl } =
+  const { pokemonList, pokemonDescription, prevUrl, nextUrl, loading } =
     usePokemon(url);
 
   const handleBack = () => {
@@ -29,6 +29,7 @@ function App() {
       previousUrl: prevUrl,
       nextUrl: nextUrl,
       descriptions: pokemonDescription,
+      loading
     };
 
     dispatch({

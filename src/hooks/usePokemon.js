@@ -6,10 +6,9 @@ const usePokemon = (url) => {
   const [error, setError] = useState(null);
   const [nextUrl, setNextUrl] = useState(null);
   const [prevUrl, setPreviousUrl] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchPokemon = useCallback(async () => {
-    setLoading(true);
     try {
       const { results, next, previous } = await (await fetch(url)).json();
       const pokemonDetail =
@@ -34,15 +33,14 @@ const usePokemon = (url) => {
       setPokemonDescription(descrArr);
       setNextUrl(next);
       setPreviousUrl(previous);
-      setLoading(false);
     } catch (error) {
       setError(error);
-      setLoading(false);
     }
   }, [url]);
 
   useEffect(() => {
     fetchPokemon();
+    setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchPokemon]);
 

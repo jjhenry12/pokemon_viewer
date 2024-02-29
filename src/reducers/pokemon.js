@@ -7,6 +7,7 @@ export const initialState = {
   nextUrl: null,
   descriptions: [],
   showDetail: false,
+  loading: false
 };
 
 export const MAPPING_ACTIONS = {
@@ -18,6 +19,7 @@ export const MAPPING_ACTIONS = {
   SET_NEXT_URL: "set_next_url",
   SET_DESCRIPTIONS: "set_descriptions",
   SET_SHOW_DETAIL: "set_show_detail",
+  SET_LOADING: "set_loading"
 };
 
 const reducer = (state, action) => {
@@ -29,6 +31,7 @@ const reducer = (state, action) => {
         previousUrl: action.payload.previousUrl,
         nextUrl: action.payload.nextUrl,
         descriptions: action.payload.descriptions,
+        loading: action.payload.loading
       };
     case MAPPING_ACTIONS.SET_URL:
       return {
@@ -69,6 +72,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         showDetail: action.payload,
+      };
+    case MAPPING_ACTIONS.SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
       };
     default: {
       throw new Error(`Unhandled action type ${action.type}`);
