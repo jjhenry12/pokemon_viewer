@@ -7,6 +7,10 @@
   padding: 0px 30px;
 }
 
+.pokemon-detail-container {
+  background-color: white;
+}
+
 .pokemon-detail-container.loading {
   opacity: 0.3;
 } 
@@ -24,7 +28,7 @@
   text-transform: capitalize;
 }
 
-.pokemon-info p {
+.pokemon-info header {
   display: flex;
   max-width: 60%;
   flex-direction: column;
@@ -98,7 +102,7 @@
     align-items: center;
   }
 
-  .pokemon-info p {
+  .pokemon-info header {
     margin-top: 75px;
     max-width: 100%;
     text-align: center;

@@ -25,14 +25,14 @@ function PokemonDetail() {
               src={pokemon.sprites?.other?.dream_world?.front_default || ""}
               alt=""
             />
-            <p>
+            <header>
               <h3 tabIndex="0" id="modal_title">
                 {pokemon.name}
               </h3>
               {description.flavor_text_entries?.[1].flavor_text}{" "}
               {description.flavor_text_entries?.[2].flavor_text}{" "}
               {description.flavor_text_entries?.[3].flavor_text}
-            </p>
+            </header>
           </div>
           <div className="pokemon-desc pokemon-props">
             <ul>

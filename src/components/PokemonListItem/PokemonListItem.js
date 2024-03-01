@@ -53,7 +53,7 @@ function PokemonListItem({ pokemon, order }) {
         <span>{name}</span>
         <ul>
           {abilities.map(({ ability }) => (
-            <li key={ability}>{ability.name}</li>
+            <li key={ability.name}>{ability.name}</li>
           ))}
         </ul>
       </div>
